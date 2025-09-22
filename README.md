@@ -13,7 +13,7 @@ An interactive scroll-triggered storytelling page built with **React + GSAP**.
 ## Tech Stack
 - React + Vite
 - GSAP + ScrollTrigger
-- TailwindCSS (optional for styling)
+- TailwindCSS
 
 ## Setup
 ```bash
