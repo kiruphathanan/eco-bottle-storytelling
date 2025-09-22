@@ -1,6 +1,6 @@
 # eco-bottle-storytelling
 Scroll-triggered interactive storytelling page for Eco-Friendly Water Bottle using React + GSAP
-# Eco Bottle Storytelling 🌿
+# Eco Bottle Storytelling 
 
 An interactive scroll-triggered storytelling page built with **React + GSAP**.
 
