@@ -17,7 +17,6 @@ An interactive scroll-triggered storytelling page built with **React + GSAP**.
 
 ## Setup
 ```bash
-git clone https://github.com/<your-username>/eco-bottle-storytelling.git
 cd eco-bottle-storytelling
 npm install
 npm run dev
