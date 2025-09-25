@@ -1,0 +1,85 @@
+/* src/App.css */
+.App {
+  overflow-x: hidden; /* Prevents horizontal scroll */
+}
+
+.section {
+  min-height: 100vh; /* Make each section full height */
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+.content {
+  max-width: 800px;
+}
+
+h1 {
+  font-size: 5rem;
+  margin-bottom: 0.5rem;
+}
+
+h2 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+/* --- Section Specific Styles --- */
+
+/* Intro Section */
+.intro {
+  background-color: #f0f0f0; /* Light background */
+}
+.intro .bottle-img {
+  margin-top: 2rem;
+  max-width: 200px;
+  height: auto;
+}
+
+/* Problem Section */
+.problem {
+  color: white; /* Text will be white on the dark background */
+  /* We will transition the background color with GSAP */
+}
+/* We'll add the background image with GSAP later */
+
+/* Benefits Section */
+.lifestyle-images {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.lifestyle-images img {
+  width: 200px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* CTA Section */
+.cta-button {
+  margin-top: 2rem;
+  padding: 1rem 3rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  background-color: #27ae60;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.cta-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 20px rgba(39, 174, 96, 0.4);
+}
