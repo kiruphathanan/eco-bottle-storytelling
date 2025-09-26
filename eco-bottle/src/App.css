@@ -83,3 +83,16 @@ p {
   transform: scale(1.05);
   box-shadow: 0 5px 20px rgba(39, 174, 96, 0.4);
 }
+
+
+/* Solution Section */
+.solution {
+  color: #333; /* Dark text for the light background */
+}
+
+.solution .bottle-img-solution {
+  max-width: 250px;
+  margin-top: 2rem;
+  /* The glow effect will be animated by GSAP */
+  box-shadow: 0 0 0px rgba(45, 212, 191, 0);
+}
