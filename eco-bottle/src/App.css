@@ -96,3 +96,8 @@ p {
   /* The glow effect will be animated by GSAP */
   box-shadow: 0 0 0px rgba(45, 212, 191, 0);
 }
+
+/* Benefits Section */
+.benefits {
+  overflow: hidden; /* Prevents content from spilling out during animation */
+}

@@ -16,97 +16,64 @@ gsap.registerPlugin(ScrollTrigger);
 function App() {
   const component = useRef(null);
 
-  // Intro Refs
+  // ... All previous refs
   const titleRef = useRef(null);
   const subtitleRef = useRef(null);
   const bottleRef = useRef(null);
-
-  // Problem Refs
   const problemSectionRef = useRef(null);
   const problemTitleRef = useRef(null);
   const problemTextRef = useRef(null);
-
-  // NEW: Create refs for the solution section
   const solutionSectionRef = useRef(null);
   const solutionTitleRef = useRef(null);
   const solutionTextRef = useRef(null);
   const solutionBottleRef = useRef(null);
 
+  // NEW: Create refs for the benefits section
+  const benefitsSectionRef = useRef(null);
+  const benefitsTitleRef = useRef(null);
+
+
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
-      // --- INTRO ANIMATION ---
+      // ... All previous animations
       const introTl = gsap.timeline();
       introTl.from(titleRef.current, { opacity: 0, y: '20px', duration: 0.8, ease: 'power3.out' });
       introTl.from(subtitleRef.current, { opacity: 0, y: '20px', duration: 0.8, ease: 'power3.out' }, "-=0.6");
       introTl.from(bottleRef.current, { opacity: 0, y: '20px', scale: 0.9, duration: 1, ease: 'power3.out' }, "-=0.6");
 
-      // --- PROBLEM BACKGROUND & TEXT ---
-      gsap.to(component.current, {
-        backgroundColor: '#2c3e50',
-        scrollTrigger: {
-          trigger: problemSectionRef.current,
-          start: 'top 50%',
-          end: 'bottom 100%',
-          scrub: true,
-        }
-      });
+      gsap.to(component.current, { backgroundColor: '#2c3e50', scrollTrigger: { trigger: problemSectionRef.current, start: 'top 50%', end: 'bottom 100%', scrub: true }});
       const problemTl = gsap.timeline({ scrollTrigger: { trigger: problemSectionRef.current, start: 'top 60%' }});
       problemTl.from(problemTitleRef.current, { x: -100, opacity: 0, duration: 1 });
       problemTl.from(problemTextRef.current, { x: -100, opacity: 0, duration: 1 }, "-=0.7");
 
-      // --- NEW: SOLUTION BACKGROUND & ANIMATIONS ---
-
-      // Background transition back to light
-      gsap.to(component.current, {
-        backgroundColor: '#ffffff', // Transition to white
-        scrollTrigger: {
-          trigger: solutionSectionRef.current,
-          start: 'top 50%',
-          end: 'bottom 100%',
-          scrub: true,
-        }
-      });
-
-      // Solution Content Timeline
-      const solutionTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: solutionSectionRef.current,
-          start: 'top 60%'
-        }
-      });
+      gsap.to(component.current, { backgroundColor: '#ffffff', scrollTrigger: { trigger: solutionSectionRef.current, start: 'top 50%', end: 'bottom 100%', scrub: true }});
+      const solutionTl = gsap.timeline({ scrollTrigger: { trigger: solutionSectionRef.current, start: 'top 60%' }});
       solutionTl.from(solutionTitleRef.current, { opacity: 0, y: 50, duration: 1 });
       solutionTl.from(solutionTextRef.current, { opacity: 0, y: 50, duration: 1 }, '-=0.7');
+      solutionTl.from(solutionBottleRef.current, { opacity: 0, scale: 0.8, duration: 1.2, ease: 'elastic.out(1, 0.75)' }, '-=0.5');
+      gsap.to(solutionBottleRef.current, { boxShadow: "0px 0px 30px 5px rgba(45, 212, 191, 0.7)", scrollTrigger: { trigger: solutionSectionRef.current, start: 'top 40%', end: 'bottom 100%', toggleActions: "play reverse play reverse" }});
+      gsap.to(solutionBottleRef.current, { y: -150, rotate: 15, scrollTrigger: { trigger: solutionSectionRef.current, start: 'top 100%', end: 'bottom 0%', scrub: true }});
 
-      // Bottle fade in, glow, and parallax
-      solutionTl.from(solutionBottleRef.current, {
-        opacity: 0,
-        scale: 0.8,
-        duration: 1.2,
-        ease: 'elastic.out(1, 0.75)'
-      }, '-=0.5');
-
-      // Glow effect
-      gsap.to(solutionBottleRef.current, {
-          boxShadow: "0px 0px 30px 5px rgba(45, 212, 191, 0.7)",
-          scrollTrigger: {
-            trigger: solutionSectionRef.current,
-            start: 'top 40%',
-            end: 'bottom 100%',
-            toggleActions: "play reverse play reverse", // Glows when entering, fades when leaving
-          }
-      });
-
-      // Parallax effect
-      gsap.to(solutionBottleRef.current, {
-        y: -150, // Move the bottle up as you scroll down
-        rotate: 15, // Tilt the bottle slightly
+      // --- NEW: BENEFITS SECTION ANIMATIONS ---
+      const benefitsTl = gsap.timeline({
         scrollTrigger: {
-          trigger: solutionSectionRef.current,
-          start: 'top 100%',
-          end: 'bottom 0%',
-          scrub: true, // Link animation to scroll position
+          trigger: benefitsSectionRef.current,
+          start: 'top 60%',
         }
       });
+
+      // Animate the title
+      benefitsTl.from(benefitsTitleRef.current, { opacity: 0, y: 50, duration: 1 });
+
+      // Animate the images with a stagger effect
+      benefitsTl.from('.lifestyle-images img', {
+        opacity: 0,
+        y: 50,
+        scale: 0.95,
+        duration: 0.7,
+        stagger: 0.2, // This is the magic! Animates each image 0.2s after the previous one.
+      }, "-=0.5");
+
 
     }, component);
     return () => ctx.revert();
@@ -115,41 +82,19 @@ function App() {
   return (
     <div className="App" ref={component}>
       {/* ... Intro Section ... */}
-      <section className="section intro">
-        <div className="content">
-          <h1 ref={titleRef}>AquaPure</h1>
-          <p ref={subtitleRef}>The Last Bottle You'll Ever Need.</p>
-          <img src={bottleImg} alt="Eco-friendly bottle" className="bottle-img" ref={bottleRef}/>
-        </div>
-      </section>
+      <section className="section intro">...</section>
 
       {/* ... Problem Section ... */}
-      <section className="section problem" ref={problemSectionRef}>
-        <div className="content">
-          <h2 ref={problemTitleRef}>The Plastic Problem is Drowning Us.</h2>
-          <p ref={problemTextRef}>Every year, millions of tons of plastic bottles end up in our oceans, harming wildlife and our planet.</p>
-        </div>
-      </section>
+      <section className="section problem" ref={problemSectionRef}>...</section>
 
-      {/* Section 3: Solution */}
-      {/* NEW: Attach refs and add bottle image */}
-      <section className="section solution" ref={solutionSectionRef}>
-        <div className="content">
-          <h2 ref={solutionTitleRef}>A Better, Sustainable Solution.</h2>
-          <p ref={solutionTextRef}>Our bottles are made from 100% recycled steel, copper, and wood. A conscious choice for a cleaner world.</p>
-          <img 
-            src={bottleImg} 
-            alt="Eco-friendly bottle" 
-            className="bottle-img-solution" 
-            ref={solutionBottleRef} 
-          />
-        </div>
-      </section>
+      {/* ... Solution Section ... */}
+      <section className="section solution" ref={solutionSectionRef}>...</section>
 
-      {/* ... Benefits Section ... */}
-      <section className="section benefits">
+      {/* Section 4: Benefits */}
+      {/* NEW: Attach refs */}
+      <section className="section benefits" ref={benefitsSectionRef}>
          <div className="content">
-          <h2>For Every Part of Your Day.</h2>
+          <h2 ref={benefitsTitleRef}>For Every Part of Your Day.</h2>
           <div className="lifestyle-images">
             <img src={gymImg} alt="Person at the gym" />
             <img src={officeImg} alt="Person at the office" />
@@ -159,14 +104,10 @@ function App() {
       </section>
 
       {/* ... CTA Section ... */}
-      <section className="section cta">
-         <div className="content">
-          <h2>Join the Revolution.</h2>
-          <button className="cta-button">Buy Now</button>
-        </div>
-      </section>
+      <section className="section cta">...</section>
     </div>
   );
 }
-
+// NOTE: For brevity, the JSX for the first 3 sections is collapsed (...). 
+// Do NOT remove them from your code. Only add the new refs.
 export default App;
