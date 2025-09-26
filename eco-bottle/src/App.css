@@ -101,3 +101,8 @@ p {
 .benefits {
   overflow: hidden; /* Prevents content from spilling out during animation */
 }
+
+/* CTA Section */
+.cta {
+  color: white; /* Make text white for the green background */
+}
